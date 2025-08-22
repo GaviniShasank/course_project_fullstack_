@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import { useCallback } from "react";
-import Navbar from "./Navbar"; // reusable navbar
-import "./Home.css"; // custom CSS file
+import Navbar from "./Navbar";
+import "./Home.css"; 
 
 export default function Home() {
   const particlesInit = useCallback(async (engine) => {
@@ -13,7 +13,6 @@ export default function Home() {
 
   return (
     <div className="container">
-      {/* Particle Background */}
       <Particles
         id="tsparticles"
         init={particlesInit}
@@ -43,11 +42,7 @@ export default function Home() {
         }}
         className="particles"
       />
-
-      {/* Reusable Navbar */}
       <Navbar />
-
-      {/* Hero Section */}
       <section className="hero" id="home">
         <motion.h2
           initial={{ opacity: 0, y: -30 }}
@@ -59,8 +54,8 @@ export default function Home() {
         </motion.h2>
         <p className="hero-text">
           Empowering learners with the skills to master Data Structures,
-          Web Development, and the combination of both — building
-          problem-solving ability and real-world coding expertise.
+          Web Development, and the combination of both building
+          problem solving ability and real world coding expertise.
         </p>
         <div className="hero-buttons">
           <button
@@ -72,23 +67,21 @@ export default function Home() {
           <button className="btn btn-outline">Learn More</button>
         </div>
       </section>
-
-      {/* Services Section */}
       <section id="services" className="services">
         <h3 className="section-title">Our Services</h3>
         <div className="service-grid">
           {[
             {
               title: "Data Structures & Algorithms (DSA)",
-              desc: "Master problem-solving and logic-building with in-depth training in arrays, linked lists, trees, graphs, dynamic programming, and more. Prepare for coding interviews with real practice problems.",
+              desc: "Master problem-solving and logic building with in-depth training in arrays, linked lists, trees, graphs, dynamic programming, and more. Prepare for coding interviews with real practice problems.",
             },
             {
               title: "Web Development",
-              desc: "Learn full-stack web development with HTML, CSS, JavaScript, React, Node.js, and databases. Build responsive websites and real-world projects to showcase your skills.",
+              desc: "Learn full stack web development with HTML, CSS, JavaScript, React, Node.js, and databases. Build responsive websites and real world projects to showcase your skills.",
             },
             {
               title: "DSA + Web Development",
-              desc: "A combined program designed to make you industry-ready. Strengthen your coding fundamentals with DSA while also gaining practical skills in front-end and back-end web development.",
+              desc: "A combined program designed to make you industry ready. Strengthen your coding fundamentals with DSA while also gaining practical skills in front end and back-end web development.",
             },
           ].map((service, i) => (
             <motion.div
@@ -104,8 +97,6 @@ export default function Home() {
           ))}
         </div>
       </section>
-
-      {/* Footer */}
       <footer className="footer">
         <p className="footer-text">© {new Date().getFullYear()} f(Y) SOLUTIONS. All rights reserved.</p>
         <div className="social-links">

@@ -41,7 +41,7 @@ function Course() {
       >
         <h1 style={{ fontSize: "3rem", fontWeight: "700", marginBottom: "15px" }}>🚀 Explore Our Courses</h1>
         <p style={{ fontSize: "1.2rem", maxWidth: "600px", lineHeight: "1.6" }}>
-          Learn the skills top tech companies value — from DSA to Full-Stack Web Development. Build real projects and level up your problem-solving expertise.
+          Learn the skills top tech companies value from DSA to Full-Stack Web Development. Build real projects and level up your problem-solving expertise.
         </p>
       </section>
       <section
@@ -96,7 +96,7 @@ function Course() {
               onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#f58220")}
               onClick={() => navigate("/signup")}
             >
-              Buy Course
+              View
             </button>
           </div>
         ))}

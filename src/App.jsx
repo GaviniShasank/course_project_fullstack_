@@ -4,13 +4,13 @@ import Signin from "./Signin.jsx";
 import Appbar from "./Appbar.jsx";
 import Course from "./Course.jsx";
 import Home from "./Home.jsx";
+import ResetPassword from "./Reset.jsx";
+import ForgotPassword from "./Forgotpassword.jsx";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import headerImage from "./assets/header.jpg";
 
 function Layout() {
   const location = useLocation();
-
-  // Hide Appbar on Home ("/") and Course ("/course")
   const hideAppbar = ["/", "/course"].includes(location.pathname.toLowerCase());
 
   return (
@@ -27,7 +27,6 @@ function Layout() {
         boxSizing: "border-box",
       }}
     >
-      {/* Conditionally render Appbar */}
       {!hideAppbar && <Appbar />}
 
       <Routes>
@@ -35,6 +34,8 @@ function Layout() {
         <Route path="/course" element={<Course />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/resetpassword" element={<ResetPassword />} />
       </Routes>
     </div>
   );
