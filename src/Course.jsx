@@ -1,150 +1,106 @@
 import React from "react";
-import movingImage from "./assets/moving.gif";
+import { useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
+import { Code, Database, Layers } from "lucide-react";
 
 function Course() {
-  const bannerWrapper = {
-    width: "100%",
-    height: "70vh",
-    position: "relative",
-    overflow: "hidden",
-  };
+  const navigate = useNavigate();
 
-  const bannerImg = {
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-  };
-
-  const overlay = {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    background: "linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.7))",
-  };
-
-  const bannerText = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    color: "white",
-    fontSize: "3rem",
-    fontWeight: "bold",
-    textShadow: "2px 2px 10px rgba(0,0,0,0.9)",
-    textAlign: "center",
-    letterSpacing: "2px",
-  };
-
-  const pageStyle = {
-    background: "linear-gradient(135deg, #f4f4f9, #e0e7ff)",
-    minHeight: "100vh",
-    fontFamily: "Arial, sans-serif",
-  };
-
-  const boxesSectionStyle = {
-    display: "flex",
-    justifyContent: "center",
-    gap: "40px",
-    marginTop: "-60px",
-    flexWrap: "wrap",
-    padding: "50px 20px",
-  };
-
-  const boxStyle = {
-    background: "white",
-    borderRadius: "20px",
-    boxShadow: "0px 6px 20px rgba(0,0,0,0.15)",
-    padding: "30px",
-    width: "300px",
-    textAlign: "center",
-    transition: "transform 0.3s ease, box-shadow 0.3s ease",
-    cursor: "pointer",
-    borderTop: "6px solid #4f46e5",
-  };
-
-  const boxTitle = {
-    fontSize: "1.5rem",
-    marginBottom: "10px",
-    color: "#4f46e5",
-  };
-
-  const boxText = {
-    fontSize: "1rem",
-    color: "#555",
-    marginBottom: "20px",
-  };
-
-  const buyButton = {
-    display: "inline-block",
-    padding: "10px 20px",
-    backgroundColor: "#4f46e5",
-    color: "white",
-    borderRadius: "10px",
-    fontWeight: "bold",
-    transition: "background-color 0.3s ease",
-    cursor: "pointer",
-  };
-
-  // Courses data
   const courses = [
     {
       title: "DSA",
       desc: "Master Data Structures and Algorithms with hands-on problems.",
+      icon: <Code size={48} color="#f58220" />,
     },
     {
       title: "Web Development",
       desc: "Learn frontend, backend, and full-stack web technologies.",
+      icon: <Layers size={48} color="#f58220" />,
     },
     {
-      title: "Web Development + DSA",
-      desc: "Get the ultimate combo: strengthen problem-solving with DSA and build real-world projects with Web Development.",
+      title: "DSA + Web Dev",
+      desc: "Combine problem-solving with real-world project building.",
+      icon: <Database size={48} color="#f58220" />,
     },
   ];
 
   return (
-    <div style={pageStyle}>
-      {/* Banner Section */}
-      <div style={bannerWrapper}>
-        <img src={movingImage} alt="banner gif" style={bannerImg} />
-        <div style={overlay}></div>
-        <div style={bannerText}>🚀 Explore Our Courses</div>
-      </div>
-
-      {/* Boxes Section */}
-      <div style={boxesSectionStyle}>
+    <div style={{ background: "#0f2027", minHeight: "100vh", fontFamily: "Arial, sans-serif", color: "#fff" }}>
+      <Navbar />
+      <section
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          textAlign: "center",
+          height: "60vh",
+          background: "linear-gradient(135deg, #0f2027, #002F6C)",
+          padding: "0 20px",
+        }}
+      >
+        <h1 style={{ fontSize: "3rem", fontWeight: "700", marginBottom: "15px" }}>🚀 Explore Our Courses</h1>
+        <p style={{ fontSize: "1.2rem", maxWidth: "600px", lineHeight: "1.6" }}>
+          Learn the skills top tech companies value — from DSA to Full-Stack Web Development. Build real projects and level up your problem-solving expertise.
+        </p>
+      </section>
+      <section
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          gap: "40px",
+          padding: "80px 20px",
+          background: "#fff",
+          color: "#0f2027",
+        }}
+      >
         {courses.map((course, index) => (
           <div
             key={index}
-            style={boxStyle}
+            style={{
+              flex: "0 1 280px",
+              background: "#f4f4f9",
+              borderRadius: "20px",
+              padding: "30px",
+              textAlign: "center",
+              boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
+              transition: "transform 0.3s, box-shadow 0.3s",
+              cursor: "pointer",
+              borderTop: "6px solid #f58220",
+            }}
             onMouseOver={(e) => {
-              e.currentTarget.style.transform = "scale(1.08)";
-              e.currentTarget.style.boxShadow =
-                "0px 12px 25px rgba(0,0,0,0.25)";
+              e.currentTarget.style.transform = "translateY(-10px)";
+              e.currentTarget.style.boxShadow = "0 15px 35px rgba(0,0,0,0.2)";
             }}
             onMouseOut={(e) => {
-              e.currentTarget.style.transform = "scale(1)";
-              e.currentTarget.style.boxShadow =
-                "0px 6px 20px rgba(0,0,0,0.15)";
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "0 10px 25px rgba(0,0,0,0.15)";
             }}
           >
-            <h2 style={boxTitle}>{course.title}</h2>
-            <p style={boxText}>{course.desc}</p>
-            <div
-              style={buyButton}
-              onMouseOver={(e) =>
-                (e.currentTarget.style.backgroundColor = "#3730a3")
-              }
-              onMouseOut={(e) =>
-                (e.currentTarget.style.backgroundColor = "#4f46e5")
-              }
+            <div style={{ marginBottom: "20px" }}>{course.icon}</div>
+            <h2 style={{ fontSize: "1.6rem", fontWeight: "700", marginBottom: "15px" }}>{course.title}</h2>
+            <p style={{ fontSize: "1rem", marginBottom: "25px" }}>{course.desc}</p>
+            <button
+              style={{
+                backgroundColor: "#f58220",
+                color: "#fff",
+                border: "none",
+                padding: "12px 25px",
+                borderRadius: "10px",
+                fontWeight: "600",
+                cursor: "pointer",
+                transition: "all 0.3s",
+              }}
+              onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#d9731f")}
+              onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#f58220")}
+              onClick={() => navigate("/signup")}
             >
               Buy Course
-            </div>
+            </button>
           </div>
         ))}
-      </div>
+      </section>
     </div>
   );
 }

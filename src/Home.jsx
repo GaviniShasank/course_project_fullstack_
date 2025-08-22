@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import { useCallback } from "react";
+import Navbar from "./Navbar"; // reusable navbar
 import "./Home.css"; // custom CSS file
 
 export default function Home() {
@@ -18,7 +19,7 @@ export default function Home() {
         init={particlesInit}
         options={{
           fullScreen: { enable: false },
-          background: { color: { value: "#0f2027" } }, // dark gradient handled in CSS
+          background: { color: { value: "#0f2027" } },
           particles: {
             number: { value: 70, density: { enable: true, area: 800 } },
             color: { value: ["#002F6C", "#F58220"] },
@@ -26,13 +27,7 @@ export default function Home() {
             opacity: { value: 0.7 },
             size: { value: { min: 2, max: 5 } },
             move: { enable: true, speed: 1.5, outModes: { default: "out" } },
-            links: {
-              enable: true,
-              color: "#002F6C",
-              distance: 150,
-              opacity: 0.3,
-              width: 1,
-            },
+            links: { enable: true, color: "#002F6C", distance: 150, opacity: 0.3, width: 1 },
           },
           interactivity: {
             events: {
@@ -49,21 +44,10 @@ export default function Home() {
         className="particles"
       />
 
-      {/* Navbar */}
-      <nav className="navbar">
-        <h1 className="logo">
-          f<span className="orange">(Y)</span> SOLUTIONS
-        </h1>
-        <div className="nav-links">
-          <a href="/">Home</a>
-          <a href="/Course">Courses</a>
-          <a href="#products">Products</a>
-          <a href="#about">About Us</a>
-          <a href="#contact">Contact</a>
-        </div>
-      </nav>
+      {/* Reusable Navbar */}
+      <Navbar />
 
-      {/* Hero */}
+      {/* Hero Section */}
       <section className="hero" id="home">
         <motion.h2
           initial={{ opacity: 0, y: -30 }}
@@ -79,12 +63,17 @@ export default function Home() {
           problem-solving ability and real-world coding expertise.
         </p>
         <div className="hero-buttons">
-          <button className="btn btn-orange">Get Started</button>
+          <button
+            className="btn btn-orange"
+            onClick={() => window.location.href = "/Course"}
+          >
+            Get Started
+          </button>
           <button className="btn btn-outline">Learn More</button>
         </div>
       </section>
 
-      {/* Services */}
+      {/* Services Section */}
       <section id="services" className="services">
         <h3 className="section-title">Our Services</h3>
         <div className="service-grid">
@@ -116,26 +105,26 @@ export default function Home() {
         </div>
       </section>
 
-     <footer className="footer">
-  <p className="footer-text">© {new Date().getFullYear()} f(Y) SOLUTIONS. All rights reserved.</p>
-  <div className="social-links">
-    {/* Clickable LinkedIn icon */}
-    <div
-      className="linkedin-link"
-      onClick={() => window.open(
-        "https://www.linkedin.com/company/fofy-solutions/posts/?feedView=all",
-        "_blank"
-      )}
-      style={{ cursor: "pointer" }}
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#0a66c2" width="28px" height="28px">
-        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.762 2.239 5 5 5h14c2.762 0 5-2.238 5-5v-14c0-2.761-2.238-5-5-5zm-11.5 19h-3v-9h3v9zm-1.5-10.268c-.966 0-1.75-.783-1.75-1.75s.784-1.75 1.75-1.75 1.75.783 1.75 1.75-.784 1.75-1.75 1.75zm13 10.268h-3v-4.5c0-1.081-.02-2.471-1.507-2.471-1.509 0-1.74 1.178-1.74 2.396v4.575h-3v-9h2.882v1.23h.041c.402-.763 1.381-1.566 2.84-1.566 3.036 0 3.595 1.998 3.595 4.592v5.744z"/>
-      </svg>
-    </div>
-  </div>
-</footer>
-
-
+      {/* Footer */}
+      <footer className="footer">
+        <p className="footer-text">© {new Date().getFullYear()} f(Y) SOLUTIONS. All rights reserved.</p>
+        <div className="social-links">
+          <div
+            className="linkedin-link"
+            onClick={() =>
+              window.open(
+                "https://www.linkedin.com/company/fofy-solutions/posts/?feedView=all",
+                "_blank"
+              )
+            }
+            style={{ cursor: "pointer" }}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#0a66c2" width="28px" height="28px">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.762 2.239 5 5 5h14c2.762 0 5-2.238 5-5v-14c0-2.761-2.238-5-5-5zm-11.5 19h-3v-9h3v9zm-1.5-10.268c-.966 0-1.75-.783-1.75-1.75s.784-1.75 1.75-1.75 1.75.783 1.75 1.75-.784 1.75-1.75 1.75zm13 10.268h-3v-4.5c0-1.081-.02-2.471-1.507-2.471-1.509 0-1.74 1.178-1.74 2.396v4.575h-3v-9h2.882v1.23h.041c.402-.763 1.381-1.566 2.84-1.566 3.036 0 3.595 1.998 3.595 4.592v5.744z"/>
+            </svg>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
