@@ -3,10 +3,82 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import {useGoogleLogin } from "@react-oauth/google";
+import { api } from "./api";
+import { useState } from "react";
+
+
 
 function Signup() {
   const navigate = useNavigate();
-  const handleGoogleSignup = () => alert("Google Signup clicked!");
+  const [email,setemail]=useState("");
+  const [password,setpassword]=useState("");
+  const [confirmPassword,setConfirmPassword]=useState("");
+  const handleSignup=async () => {
+    if (!email || !password || !confirmPassword) {
+      alert("All fields are required!");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    try {
+      const { data } = await api.post("http://localhost:3000/signup", {
+        email,
+        password,
+        confirmPassword
+      });
+      if(data.status){
+      localStorage.setItem("token", data.token);
+      navigate("/");
+      }
+      else{
+        if(data.message==="revalidate password"){
+          alert("Revalidate password");
+        }
+        else if(data.message==="Enter Valid Email"){
+          alert("Enter Valid Email");
+        }
+        else{
+          alert("Make the password strong");
+        }
+      }
+    } catch (err) {
+      console.error("Signup failed:", err);
+      alert("try again");
+    }
+  };
+
+  const handleGoogleSignup =  useGoogleLogin({
+  onSuccess: async (tokenResponse) => {
+    try {
+      const res = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+        headers: {
+          Authorization: `Bearer ${tokenResponse.access_token}`,
+        },
+      });
+      const profile = await res.json();
+      const { data } = await api.post("http://localhost:3000/google-auth", {
+        email: profile.email,
+        name: profile.name,
+        picture: profile.picture,
+      });
+
+      console.log("User logged in:", data.user);
+
+      localStorage.setItem("token", data.token);
+      navigate("/");
+    } catch (err) {
+      console.error("Login error:", err);
+    }
+  },
+  onError: () => {
+    console.log("Login Failed");
+  },
+});
 
   const googleLogo = (
     <img
@@ -15,6 +87,7 @@ function Signup() {
       style={{ width: 20, height: 20 }}
     />
   );
+  
 
   return (
     <div
@@ -56,11 +129,11 @@ function Signup() {
         </ul>
 
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-          <TextField id="email" label="Email Address" variant="outlined" fullWidth />
-          <TextField id="password" label="Password" type="password" variant="outlined" fullWidth />
-          <TextField id="confirmPassword" label="Verify New Password" type="password" variant="outlined" fullWidth />
+          <TextField id="email" label="Email Address" variant="outlined" fullWidth  value={email} onChange={(e)=>setemail(e.target.value)}/>
+          <TextField id="password" label="Password" type="password" variant="outlined" fullWidth value={password} onChange={(e)=>setpassword(e.target.value)} />
+          <TextField id="confirmPassword" label="Verify New Password" type="password" variant="outlined" fullWidth value={confirmPassword} onChange={(e)=>setConfirmPassword(e.target.value)} />
 
-          <Button variant="contained" size="large" sx={{ mt: 1 }} >
+          <Button variant="contained" size="large" sx={{ mt: 1 }}   onClick={handleSignup}>
             Create Account
           </Button>
         <Box
