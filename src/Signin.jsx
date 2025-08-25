@@ -3,15 +3,62 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
 import { useNavigate } from "react-router-dom";
-import ForgotPassword from './Forgotpassword';
+import {useGoogleLogin } from "@react-oauth/google";
+import { api } from "./api";
+import { useState } from 'react';
 function Signin() {
   const navigate = useNavigate();
-  const handleGoogleSignin = () => alert("Google Signin clicked!");
-  const handleForgotPassword = () => {
+    const handleForgotPassword = () => {
   navigate("/forgotpassword"); 
 };
+const [email,setemail]=useState("");
+const [password,setpassword]=useState("");
+const handleLogin = async () => {
+  try {
+    const { data } = await api.post("http://localhost:3000/login", {
+      email,
+      password,
+    });
+    if (data?.token) {
+    localStorage.setItem("token", data.token);
+    navigate("/");
+    }
+    else{
+       alert("Invalid credentials");
+    }
+  } catch (err) {
+    console.error("Login failed:", err);
+      alert("Invalid credentials");
+    //  alert(err.response?.data?.message || "Something went wrong, please try again.");
+  }
+};
+  const handleGoogleSignup =  useGoogleLogin({
+  onSuccess: async (tokenResponse) => {
+    try {
+      const res = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+        headers: {
+          Authorization: `Bearer ${tokenResponse.access_token}`,
+        },
+      });
+      const profile = await res.json();
+      const { data } = await api.post("http://localhost:3000/google-auth", {
+        email: profile.email,
+        name: profile.name,
+        picture: profile.picture,
+      });
 
+      console.log("User logged in:", data.user);
 
+      localStorage.setItem("token", data.token);
+      navigate("/");
+    } catch (err) {
+      console.error("Login error:", err);
+    }
+  },
+  onError: () => {
+    console.log("Login Failed");
+  },
+});
   return (
     <div 
       style={{
@@ -41,6 +88,8 @@ function Signin() {
               label="Email" 
               variant="outlined" 
               fullWidth 
+              value={email}
+              onChange={(e)=>setemail(e.target.value)}
             />
             <TextField 
               id="password" 
@@ -48,6 +97,8 @@ function Signin() {
               type="password"
               variant="outlined" 
               fullWidth 
+              value={password}
+              onChange={(e)=>setpassword(e.target.value)}
             />
             <Typography
               sx={{
@@ -66,6 +117,7 @@ function Signin() {
               variant="contained" 
               size="large"
               sx={{ mt: 1 }}
+               onClick={handleLogin}
             >
               Login
             </Button>
@@ -114,7 +166,7 @@ function Signin() {
                   boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
                 },
               }}
-              onClick={handleGoogleSignin}
+              onClick={handleGoogleSignup}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

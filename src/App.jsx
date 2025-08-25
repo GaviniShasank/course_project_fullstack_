@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import Signup from "./Signup.jsx";
 import Signin from "./Signin.jsx";
 import Appbar from "./Appbar.jsx";
@@ -43,9 +44,11 @@ function Layout() {
 
 function App() {
   return (
+     <GoogleOAuthProvider clientId="576242058085-d7olhva4s8fadk5qen85l65hjide2do5.apps.googleusercontent.com">
     <Router>
       <Layout />
     </Router>
+    </GoogleOAuthProvider>
   );
 }
 

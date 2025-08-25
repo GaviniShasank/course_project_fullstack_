@@ -1,11 +1,40 @@
 import { Button, TextField, Typography, Box } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
 
 function ResetPassword() {
   const navigate = useNavigate();
-  const handleReset = () => {
-    alert("Password has been reset successfully!");
-    navigate("/signin"); 
+  const { state } = useLocation();
+  const email = state?.email || "";
+
+  const [otp, setOtp] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleReset = async () => {
+    if (newPassword !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const res = await axios.post("http://localhost:3000/reset-password", {
+        email,
+        otp,
+        newPassword,
+        confirmPassword,
+      });
+
+      alert("Password reset successful");
+      navigate("/signin");
+    } catch (err) {
+      alert(err.response?.data?.msg || "Password reset failed");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -41,10 +70,12 @@ function ResetPassword() {
 
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 2 }}>
           <TextField
-            id="otp"
+             id="otp"
             label="OTP"
             variant="outlined"
             fullWidth
+            value={otp}
+            onChange={(e) => setOtp(e.target.value)}
           />
           <TextField
             id="newPassword"
@@ -52,6 +83,8 @@ function ResetPassword() {
             type="password"
             variant="outlined"
             fullWidth
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
           />
           <TextField
             id="confirmPassword"
@@ -59,6 +92,8 @@ function ResetPassword() {
             type="password"
             variant="outlined"
             fullWidth
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
 
           <Button

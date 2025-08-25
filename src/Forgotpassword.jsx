@@ -1,12 +1,30 @@
 import { Button, TextField, Typography, Box } from "@mui/material";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 
 function ForgotPassword() {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSendOtp = () => {
-    alert("OTP sent to your email!");
-    navigate("/resetpassword"); 
+  const handleSendOtp = async () => {
+    if (!email) {
+      alert("Please enter your email address");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const res = await axios.post("http://localhost:3000/forgot-password", { email });
+      alert("enter otp");
+      navigate("/resetpassword", { state: { email } });
+    } catch (err) {
+      alert(err.response?.data?.msg || "Failed to send OTP");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -41,14 +59,17 @@ function ForgotPassword() {
             label="Email Address"
             variant="outlined"
             fullWidth
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
 
           <Button
             variant="contained"
             size="large"
             onClick={handleSendOtp}
+          disabled={loading}
           >
-            Send OTP
+            {loading ? "Sending..." : "Send OTP"}
           </Button>
 
           <Button
