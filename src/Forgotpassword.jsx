@@ -34,7 +34,7 @@ function ForgotPassword() {
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
-        backgroundImage: `url("/src/assets/background.jpg")`,
+        backgroundImage: `url("/background.jpg")`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -87,4 +87,5 @@ function ForgotPassword() {
 }
 
 export default ForgotPassword;
+
 
