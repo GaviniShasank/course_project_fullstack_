@@ -8,7 +8,7 @@ const secretKey = 'abcde12345';
 app.use(bodyParser.json())
 const cors = require("cors");
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: "https://fysol.netlify.app",
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
@@ -217,4 +217,5 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
 
