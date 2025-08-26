@@ -14,8 +14,8 @@ export default function Navbar() {
         <a href="/">Home</a>
         <a href="/Course">Courses</a>
         <a href="/signin">Tracker</a>
-        <a href="#about">About Us</a>
-        <a href="#contact">Contact</a>
+        <a href="/About">About Us</a>
+        <a href="/contact">Contact</a>
       </div>
     </nav>
   );

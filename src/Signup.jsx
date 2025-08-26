@@ -33,7 +33,7 @@ function Signup() {
       });
       if(data.status){
       localStorage.setItem("token", data.token);
-      navigate("/");
+      navigate("/cptracker");
       }
       else{
         if(data.message==="revalidate password"){
@@ -70,7 +70,7 @@ function Signup() {
       console.log("User logged in:", data.user);
 
       localStorage.setItem("token", data.token);
-      navigate("/");
+      navigate("/cptracker");
     } catch (err) {
       console.error("Login error:", err);
     }

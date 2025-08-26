@@ -21,7 +21,7 @@ const handleLogin = async () => {
     });
     if (data?.token) {
     localStorage.setItem("token", data.token);
-    navigate("/");
+    navigate("/cptracker");
     }
     else{
        alert("Invalid credentials");
@@ -50,7 +50,7 @@ const handleLogin = async () => {
       console.log("User logged in:", data.user);
 
       localStorage.setItem("token", data.token);
-      navigate("/");
+      navigate("/cptracker");
     } catch (err) {
       console.error("Login error:", err);
     }

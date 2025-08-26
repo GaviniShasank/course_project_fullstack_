@@ -9,10 +9,13 @@ import ResetPassword from "./Reset.jsx";
 import ForgotPassword from "./Forgotpassword.jsx";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import headerImage from "./assets/header.jpg";
+import About from "./About.jsx";
+import Contact from "./Contact.jsx";
+import CpTrackerIntro from "./CpTrackerIntro";
 
 function Layout() {
   const location = useLocation();
-  const hideAppbar = ["/", "/course"].includes(location.pathname.toLowerCase());
+  const hideAppbar = ["/", "/course","/about","/contact","/cptracker"].includes(location.pathname.toLowerCase());
 
   return (
     <div
@@ -37,6 +40,12 @@ function Layout() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/cptracker" element={<CpTrackerIntro />} />
+       
+
+        
       </Routes>
     </div>
   );
