@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000;
 const secretKey = 'abcde12345';
 app.use(bodyParser.json())
 const cors = require("cors");
@@ -217,3 +217,4 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
