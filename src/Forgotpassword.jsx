@@ -17,7 +17,7 @@ function ForgotPassword() {
 
     try {
       setLoading(true);
-      const res = await axios.post("https://course-project-backend-liox.onrender.com/forgot-password", { email });
+      const res = await axios.post("http://localhost:3000/forgot-password", { email });
       alert("enter otp");
       navigate("/resetpassword", { state: { email } });
     } catch (err) {
@@ -87,5 +87,3 @@ function ForgotPassword() {
 }
 
 export default ForgotPassword;
-
-

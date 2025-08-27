@@ -3,6 +3,11 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import logo from "./assets/logo.jpg"; 
+const link = document.querySelector("link[rel~='icon']");
+if (link) {
+  link.href = logo;
+}
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
