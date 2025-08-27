@@ -26,7 +26,7 @@ function Signup() {
     }
 
     try {
-      const { data } = await api.post("http://localhost:3000/signup", {
+      const { data } = await api.post("https://course-project-backend-liox.onrender.com/signup", {
         email,
         password,
         confirmPassword
@@ -61,7 +61,7 @@ function Signup() {
         },
       });
       const profile = await res.json();
-      const { data } = await api.post("http://localhost:3000/google-auth", {
+      const { data } = await api.post("https://course-project-backend-liox.onrender.com/google-auth", {
         email: profile.email,
         name: profile.name,
         picture: profile.picture,
@@ -206,3 +206,4 @@ function Signup() {
 }
 
 export default Signup;
+
