@@ -15,7 +15,7 @@ const [email,setemail]=useState("");
 const [password,setpassword]=useState("");
 const handleLogin = async () => {
   try {
-    const { data } = await api.post("http://localhost:3000/login", {
+    const { data } = await api.post("https://course-project-backend-liox.onrender.com/login", {
       email,
       password,
     });
@@ -41,7 +41,7 @@ const handleLogin = async () => {
         },
       });
       const profile = await res.json();
-      const { data } = await api.post("http://localhost:3000/google-auth", {
+      const { data } = await api.post("https://course-project-backend-liox.onrender.com/google-auth", {
         email: profile.email,
         name: profile.name,
         picture: profile.picture,
@@ -190,3 +190,4 @@ const handleLogin = async () => {
 }
 
 export default Signin;
+
